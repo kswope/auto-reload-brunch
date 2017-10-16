@@ -49,6 +49,7 @@ class AutoReloader {
     }
 
     if (this.enabled && !isWorker) this.startServer();
+    if (this.enabled && !isWorker) this.startApp(); // does this go here?
   }
 
   startServer() {
@@ -79,6 +80,59 @@ class AutoReloader {
       }
     });
   }
+
+
+  startApp() {
+
+    if ( !this.config.app ) return
+
+    // move these?
+    let http = require( 'http' )
+    let chokidar = require('chokidar')
+    let pathJoin = require('fs').pathJoin
+
+    let path = this.config.app.path
+    let appPath = sysPath.join(process.cwd(), path)
+    let app = require(appPath)
+    let port = this.config.app.port
+    let watchDir = this.config.app.watchDir
+
+    const server = http.createServer()
+
+
+    let ignorables = [ /^\../, /.*node_modules.*/ ]
+    let chokOptions = { ignored: ignorables, ignoreInitial: true }
+    chokidar.watch( watchDir, chokOptions  ).on( 'all', ( event, path ) => {
+
+      server.removeListener( "request", app )
+      // nuke all the loaded modules.  too lazy to target just the relevant
+      Object.keys( require.cache ).forEach( key => { 
+        delete require.cache[ key ] 
+      } )
+      // nuking modules cache isnt' good enough, now we must re-require
+      app = require( appPath )
+      // this helpfully resinstalls app when its needed
+      server.on( "request", app )
+
+      // tell all connected browsers to reload
+      const sendMessage = () => {
+        this.connections
+          .filter(conn => conn.readyState === 1)
+          .forEach(conn => conn.send('page'))
+      }
+
+      sendMessage()
+
+    } )
+
+    console.log('Starting app', appPath, 'on', port, 'watching', watchDir)
+    server.on( "request", app )
+    server.listen( port )
+    this.appServer = server
+
+  }
+
+
 
   onCompile(changedFiles) {
     const enabled = this.enabled;
@@ -130,6 +184,7 @@ class AutoReloader {
   teardown() {
     if (this.server) this.server.close();
     if (this.httpsServer) this.httpsServer.close();
+    if (this.appServer) this.httpsServer.close();
   }
 
   compile(file) {
