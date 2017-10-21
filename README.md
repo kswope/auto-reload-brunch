@@ -1,4 +1,6 @@
-# auto-reload-brunch
+# auto-reload-brunch-express
+
+Fork of auto-reload-brunch that adds express support
 
 Adds automatic browser reloading support to [Brunch] when using the `brunch watch` command.
 
