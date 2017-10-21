@@ -84,6 +84,7 @@ class AutoReloader {
 
   startApp() {
 
+    console.log('this.config.app', this.config.app)
     if ( !this.config.app ) return
 
     // move these?
@@ -96,6 +97,7 @@ class AutoReloader {
     let app = require(appPath)
     let port = this.config.app.port
     let watchDir = this.config.app.watchDir
+    watchDir = sysPath.resolve(this.config.app.watchDir)
 
     const server = http.createServer()
 
@@ -103,6 +105,8 @@ class AutoReloader {
     let ignorables = [ /^\../, /.*node_modules.*/ ]
     let chokOptions = { ignored: ignorables, ignoreInitial: true }
     chokidar.watch( watchDir, chokOptions  ).on( 'all', ( event, path ) => {
+
+      console.log('auto reload chokidar', event, path)
 
       server.removeListener( "request", app )
       // nuke all the loaded modules.  too lazy to target just the relevant
