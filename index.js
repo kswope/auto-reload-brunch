@@ -84,7 +84,6 @@ class AutoReloader {
 
   startApp() {
 
-    console.log('this.config.app', this.config.app)
     if ( !this.config.app ) return
 
     // move these?
@@ -104,32 +103,42 @@ class AutoReloader {
     let ignore = this.config.app.ignore
     let chokOptions = { ignored: ignore, ignoreInitial: true }
 
+
+    // NOTE: if reloadBrowser===true this fires a reload message for EACH file
+    // change detected, will that be a problem or will user only change one
+    // file at a time or will we get a stampede in some situations ( like a
+    // global find and replace )?
     chokidar.watch( watch, chokOptions  ).on( 'all', ( event, path ) => {
 
-      debug('auto reload chokidar', event, path)
+      debug('chokidar detected', event, path)
+      debug('reloading', app)
 
       server.removeListener( "request", app )
+
       // nuke all the loaded modules.  too lazy to target just the relevant
       Object.keys( require.cache ).forEach( key => { 
         delete require.cache[ key ] 
       } )
+
       // nuking modules cache isnt' good enough, now we must re-require
       app = require( appPath )
+
       // this helpfully resinstalls app when its needed
       server.on( "request", app )
 
       // tell all connected browsers to reload
-      const sendMessage = () => {
-        this.connections
-          .filter(conn => conn.readyState === 1)
-          .forEach(conn => conn.send('page'))
+      if ( this.config.app.reloadBrowser ) {
+        const sendMessage = () => {
+          this.connections
+            .filter( conn => conn.readyState === 1 )
+            .forEach( conn => conn.send( 'page' ) )
+        }
+        sendMessage()
       }
-
-      sendMessage()
 
     } )
 
-    debug('Starting app', appPath, 'on', port, 'watching', watch, 'from', process.cwd())
+    debug('Starting', appPath, 'on', port, 'watching', watch, 'from', process.cwd())
     server.on( "request", app )
     server.listen( port )
     this.appServer = server
