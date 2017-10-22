@@ -91,11 +91,9 @@ class AutoReloader {
     let chokidar = require('chokidar')
     let debug = require('debug')('express-express')
 
-    let appPath = this.config.app.path
+    let appPath = sysPath.resolve(this.config.app.path)
     // let app = require(appPath)
-    debug(process.cwd())
-    let app = require('./app.js')
-    debug(process.cwd())
+    let app = require(appPath)
     let port = this.config.app.port
 
     const server = http.createServer()
