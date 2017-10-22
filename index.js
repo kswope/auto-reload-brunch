@@ -89,11 +89,9 @@ class AutoReloader {
     // move these?
     let http = require( 'http' )
     let chokidar = require('chokidar')
-    let pathJoin = require('fs').pathJoin
     let debug = require('debug')('express-express')
 
-    let path = this.config.app.path
-    let appPath = sysPath.join(process.cwd(), path)
+    let appPath = this.config.app.path
     let app = require(appPath)
     let port = this.config.app.port
 
