@@ -110,7 +110,7 @@ class AutoReloader {
     chokidar.watch( watch, chokOptions  ).on( 'all', ( event, path ) => {
 
       debug('chokidar detected', event, path)
-      debug('reloading', app)
+      debug('reloading', appPath)
 
       server.removeListener( "request", app )
 
