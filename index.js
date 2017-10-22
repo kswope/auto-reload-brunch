@@ -97,10 +97,8 @@ class AutoReloader {
     let app = require(appPath)
     let port = this.config.app.port
     let watchDir = this.config.app.watchDir
-    watchDir = sysPath.resolve(this.config.app.watchDir)
 
     const server = http.createServer()
-
 
     let ignorables = [ /^\../, /.*node_modules.*/ ]
     let chokOptions = { ignored: ignorables, ignoreInitial: true }
