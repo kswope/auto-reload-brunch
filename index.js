@@ -91,6 +91,7 @@ class AutoReloader {
     let http = require( 'http' )
     let chokidar = require('chokidar')
     let pathJoin = require('fs').pathJoin
+    let debug = require('debug')('express-express')
 
     let path = this.config.app.path
     let appPath = sysPath.join(process.cwd(), path)
@@ -105,7 +106,7 @@ class AutoReloader {
 
     chokidar.watch( watch, chokOptions  ).on( 'all', ( event, path ) => {
 
-      console.log('auto reload chokidar', event, path)
+      debug('auto reload chokidar', event, path)
 
       server.removeListener( "request", app )
       // nuke all the loaded modules.  too lazy to target just the relevant
@@ -128,7 +129,7 @@ class AutoReloader {
 
     } )
 
-    console.log('Starting app', appPath, 'on', port, 'watching', watch, 'from', process.cwd())
+    debug('Starting app', appPath, 'on', port, 'watching', watch, 'from', process.cwd())
     server.on( "request", app )
     server.listen( port )
     this.appServer = server
