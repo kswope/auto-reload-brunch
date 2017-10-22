@@ -95,6 +95,7 @@ class AutoReloader {
     let app = require(appPath)
     let port = this.config.app.port
 
+    console.log(process.cwd())
     const server = http.createServer()
 
     let watch = this.config.app.watch
