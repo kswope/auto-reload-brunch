@@ -84,14 +84,13 @@ class AutoReloader {
 
   startApp() {
 
-    debug(process.cwd())
-
     if ( !this.config.app ) return
 
     // move these?
     let http = require( 'http' )
     let chokidar = require('chokidar')
     let debug = require('debug')('express-express')
+    debug(process.cwd())
 
     let appPath = this.config.app.path
     let app = require(appPath)
