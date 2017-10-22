@@ -93,7 +93,8 @@ class AutoReloader {
     debug(process.cwd())
 
     let appPath = this.config.app.path
-    let app = require(appPath)
+    // let app = require(appPath)
+    let app = require('./app.js')
     let port = this.config.app.port
 
     const server = http.createServer()
