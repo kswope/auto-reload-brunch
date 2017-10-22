@@ -96,13 +96,13 @@ class AutoReloader {
     let appPath = sysPath.join(process.cwd(), path)
     let app = require(appPath)
     let port = this.config.app.port
-    let watchDir = this.config.app.watchDir
+    let watch = this.config.app.watch
 
     const server = http.createServer()
 
     let ignorables = [ /^\../, /.*node_modules.*/ ]
     let chokOptions = { ignored: ignorables, ignoreInitial: true }
-    chokidar.watch( watchDir, chokOptions  ).on( 'all', ( event, path ) => {
+    chokidar.watch( watch, chokOptions  ).on( 'all', ( event, path ) => {
 
       console.log('auto reload chokidar', event, path)
 
@@ -127,7 +127,7 @@ class AutoReloader {
 
     } )
 
-    console.log('Starting app', appPath, 'on', port, 'watching', watchDir, 'from', process.cwd())
+    console.log('Starting app', appPath, 'on', port, 'watching', watch, 'from', process.cwd())
     server.on( "request", app )
     server.listen( port )
     this.appServer = server
