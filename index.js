@@ -127,7 +127,7 @@ class AutoReloader {
 
     } )
 
-    console.log('Starting app', appPath, 'on', port, 'watching', watchDir)
+    console.log('Starting app', appPath, 'on', port, 'watching', watchDir, 'from', process.cwd())
     server.on( "request", app )
     server.listen( port )
     this.appServer = server
