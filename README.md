@@ -34,6 +34,7 @@ See the [original](https://github.com/brunch/auto-reload-brunch) for more and be
 The MIT License (MIT)
 
 Copyright (c) 2012-2017 Paul Miller (http://paulmillr.com)
+
 Copyright (c) 2017 Kevin Swope <github-kevdev@snkmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
