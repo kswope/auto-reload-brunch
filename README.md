@@ -1,8 +1,8 @@
 # auto-reload-brunch-express
 
-Fork of auto-reload-brunch that adds the functionality of running an express
-server with 'hot reloading' and browser reloading.  In other words, you don't
-need nodemon and the browser is refreshed automatically.
+Hack of auto-reload-brunch that adds the functionality of running an express
+app with 'hot reloading' and browser reloading.  In other words, you don't need
+nodemon and the browser is refreshed automatically.
 
 Be sure to run brunch without --server option
 
