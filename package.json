@@ -6,10 +6,10 @@
     "name": "Kevin Swope",
     "email": "github-kevdev@snkmail.com"
   },
-  "homepage": "https://github.com/brunch/auto-reload-brunch-express",
+  "homepage": "https://github.com/kswope/auto-reload-brunch-express",
   "repository": {
     "type": "git",
-    "url": "git@github.com:brunch/auto-reload-brunch.git"
+    "url": "git@github.com:kswope/auto-reload-brunch-express.git"
   },
   "scripts": {
     "test": "eslint index.js && mocha test"
