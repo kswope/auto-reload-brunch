@@ -7,7 +7,7 @@ brunch.io's usual greatness.
 
 Be sure to run brunch without --server option (check package.json scripts)
 
-configs needed for brunch-config.js (also activates running of express)
+configs needed in brunch-config.js (also activates running of express)
 
 ``` js
 
