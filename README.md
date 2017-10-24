@@ -5,9 +5,10 @@ app with 'hot reloading' and corresponding browser reloading.  In other words,
 you don't need nodemon and the browser is refreshed automatically, along with
 brunch.io's usual greatness.
 
-Be sure to run brunch without --server option
+Be sure to run brunch without --server option (check package.json scripts)
 
 Additional configs for brunch-config.js (also activates running of express)
+
 ``` js
 
 module.exports = {
