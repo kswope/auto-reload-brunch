@@ -1,6 +1,6 @@
 {
   "name": "auto-reload-brunch-express",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Adds automatic browser reloading support to brunch... also express.",
   "author": {
     "name": "Kevin Swope",
@@ -32,6 +32,7 @@
   "files": [
     "README.md",
     "package.json",
-    "index.js"
+    "index.js",
+    "vendor"
   ]
 }
