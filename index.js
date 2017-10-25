@@ -102,7 +102,6 @@ class AutoReloader {
     let ignore = this.config.app.ignore
     let chokOptions = { ignored: ignore, ignoreInitial: true }
 
-
     // NOTE: if reloadBrowser===true this fires a reload message for EACH file
     // change detected, will that be a problem or will user only change one
     // file at a time or will we get a stampede in some situations ( like a
@@ -196,7 +195,7 @@ class AutoReloader {
   teardown() {
     if (this.server) this.server.close();
     if (this.httpsServer) this.httpsServer.close();
-    if (this.appServer) this.httpsServer.close();
+    if (this.appServer) this.appServer.close();
   }
 
   compile(file) {

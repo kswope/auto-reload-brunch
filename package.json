@@ -1,6 +1,6 @@
 {
   "name": "auto-reload-brunch-express",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Adds automatic browser reloading support to brunch... also express.",
   "author": {
     "name": "Kevin Swope",
@@ -28,5 +28,10 @@
   },
   "eslintConfig": {
     "extends": "brunch"
-  }
+  },
+  "files": [
+    "README.md",
+    "package.json",
+    "index.js"
+  ]
 }
