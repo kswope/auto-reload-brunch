@@ -89,7 +89,7 @@ class AutoReloader {
     // move these?
     let http = require( 'http' )
     let chokidar = require('chokidar')
-    let debug = require('debug')('express-express')
+    let debug = require('debug')('auto-reload-brunch-express')
 
     let appPath = sysPath.resolve(this.config.app.path)
     // let app = require(appPath)
@@ -118,11 +118,19 @@ class AutoReloader {
         delete require.cache[ key ] 
       } )
 
-      // nuking modules cache isnt' good enough, now we must re-require
-      app = require( appPath )
+      try {
 
-      // this helpfully resinstalls app when its needed
-      server.on( "request", app )
+        // nuking modules cache isnt' good enough, now we must re-require
+        app = require( appPath )
+
+        // this helpfully resinstalls app when its needed
+        server.on( "request", app )
+
+      } catch ( e ) {
+
+        console.error( e )
+
+      }
 
       // tell all connected browsers to reload
       if ( this.config.app.reloadBrowser ) {
